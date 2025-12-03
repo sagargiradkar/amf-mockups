@@ -54,7 +54,7 @@ export function Navigation() {
           </NavLink>
 
           {/* Cart */}
-          <NavLink to="/cart" className="relative group">
+          <NavLink to="/" className="relative group">
             <div className="p-2 rounded-md hover:bg-destructive/20 transition-colors">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-bold ring-2 ring-primary">
@@ -109,7 +109,7 @@ export function Navigation() {
             </NavLink>
 
             {/* Cart */}
-            <NavLink to="/cart" className="relative p-2">
+            <NavLink to="/" className="relative p-2">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold">
                 0

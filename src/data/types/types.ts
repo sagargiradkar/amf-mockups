@@ -76,3 +76,34 @@ export interface TrainingModule {
 	url: string;
 	isNew: boolean;
 }
+export type NotificationType = 'document' | 'training' | 'system' | 'service';
+
+export interface Notification {
+  id: string;
+  type: NotificationType;
+  message: string;
+  timestamp: string; // MM-DD-YYYY format
+  isRead: boolean;
+  documentId?: string; // Optional: Link to specific document
+  machineId?: string; // Optional: Link to specific machine
+  actionUrl?: string; // Optional: Link to take action
+  priority?: 'low' | 'medium' | 'high'; // Optional: Priority level
+}
+
+export interface CartItem {
+  id: string;
+  documentId: string;
+  filename: string;
+  serialNumber: string;
+  machineId?: string;
+  machineName?: string;
+  fileType: string;
+  fileSize?: string;
+  dateAdded: string;
+  category: DocumentCategory;
+}
+
+export interface Cart {
+  items: CartItem[];
+  totalItems: number;
+}

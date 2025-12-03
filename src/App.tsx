@@ -9,39 +9,64 @@ import MachineDetailsPage from "./pages/MachineDetailsPage";
 import TrainingPage from "./pages/TrainingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SearchResultsPage from "./components/documentation/SearchResultsPage";
+import NotificationsPage from "./pages/NotificationsPage";
+import CartPage from "./pages/CartPage";
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: 1,
+			staleTime: 5 * 60 * 1000, // 5 minutes
+		},
+	},
 });
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <AuthProvider>
-        <NotificationProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Navigate to="/machines" replace />} />
-              <Route path="/machines" element={<MachinesPage />} />
-              <Route path="/machines/:id" element={<MachineDetailsPage />} />
-              <Route path="/search" element={<SearchResultsPage />} />
-              <Route path="/documentation" element={<DocumentationPage />} />
-              <Route path="/training" element={<TrainingPage />} />
-              <Route path="/parts" element={<MachinesPage />} />
-              <Route path="/service" element={<MachinesPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </BrowserRouter>
-        </NotificationProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
+	<QueryClientProvider client={queryClient}>
+		<ThemeProvider>
+			<AuthProvider>
+				<NotificationProvider>
+					<BrowserRouter>
+						<Routes>
+							<Route
+								path="/"
+								element={<Navigate to="/machines" replace />}
+							/>
+							<Route
+								path="/machines"
+								element={<MachinesPage />}
+							/>
+							<Route
+								path="/machines/:id"
+								element={<MachineDetailsPage />}
+							/>
+							<Route
+								path="/search"
+								element={<SearchResultsPage />}
+							/>
+							<Route
+								path="/documentation"
+								element={<DocumentationPage />}
+							/>
+							<Route
+								path="/training"
+								element={<TrainingPage />}
+							/>
+							<Route path="/parts" element={<MachinesPage />} />
+							<Route path="/service" element={<MachinesPage />} />
+							<Route
+								path="/notifications"
+								element={<NotificationsPage />}
+							/>
+							<Route path="/cart" element={<CartPage />} />
+							<Route path="*" element={<NotFoundPage />} />
+						</Routes>
+					</BrowserRouter>
+				</NotificationProvider>
+			</AuthProvider>
+		</ThemeProvider>
+	</QueryClientProvider>
 );
 
 export default App;
