@@ -45,7 +45,7 @@ export const mockMachines: Machine[] = [
         status: "operational",
         installationDate: "06-15-2023",
         location: "Alpha Baking Co. - Lyndale Plant",
-        isNew: false,
+        isNew: true,
         documentCount: 8,
     },
     {
@@ -77,7 +77,7 @@ export const mockMachines: Machine[] = [
         status: "operational",
         installationDate: "01-10-2024",
         location: "Alpha Baking Co. - Lyndale Plant",
-        isNew: false,
+        isNew: true,
         documentCount: 15,
     },
     {
@@ -229,7 +229,7 @@ export const mockDocuments: Document[] = [
         category: "electrical-drawings",
         fileType: "pdf",
         fileUrl: "/docs/oven-schematics.pdf",
-        isNew: false,
+        isNew: true,
         isFavorite: false,
         machineId: "10",
     },
@@ -241,7 +241,7 @@ export const mockDocuments: Document[] = [
         category: "boms",
         fileType: "pdf",
         fileUrl: "/docs/divider-bom.pdf",
-        isNew: false,
+        isNew: true,
         isFavorite: false,
     },
     {
@@ -252,7 +252,7 @@ export const mockDocuments: Document[] = [
         category: "manuals",
         fileType: "pdf",
         fileUrl: "/docs/proofer-guide.pdf",
-        isNew: false,
+        isNew: true,
         isFavorite: true,
         machineId: "13",
     },
@@ -287,7 +287,7 @@ export const mockDocuments: Document[] = [
         category: "mechanical-drawings",
         fileType: "pdf",
         fileUrl: "/docs/conveyor-specs.pdf",
-        isNew: false,
+        isNew: true,
         isFavorite: false,
         machineId: "1",
     },
@@ -310,7 +310,7 @@ export const mockDocuments: Document[] = [
         category: "electrical-drawings",
         fileType: "pdf",
         fileUrl: "/docs/panel-wiring.pdf",
-        isNew: false,
+        isNew: true,
         isFavorite: false,
     },
     {
@@ -344,7 +344,7 @@ export const mockDocuments: Document[] = [
         fileType: "txt",
         fileUrl: "/docs/install-notes.txt",
         isNew: true,
-        isFavorite: false,
+        isFavorite: true,
         machineId: "5",
     },
     {
@@ -355,7 +355,7 @@ export const mockDocuments: Document[] = [
         category: "translations",
         fileType: "pdf",
         fileUrl: "/docs/french-manual.pdf",
-        isNew: false,
+        isNew: true,
         isFavorite: false,
     },
     {
@@ -377,8 +377,8 @@ export const mockDocuments: Document[] = [
         category: "mechanical-drawings",
         fileType: "pdf",
         fileUrl: "/docs/pneumatic-diagram.pdf",
-        isNew: false,
-        isFavorite: false,
+        isNew: true,
+        isFavorite: true,
     },
 ];
 
@@ -419,7 +419,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: "AMF Method Premium",
         type: "premium",
         url: "https://www.youtube.com/watch?v=N6L197bEEPU",
-        isNew: false,
+        isNew: true,
     },
     {
         id: "2",
