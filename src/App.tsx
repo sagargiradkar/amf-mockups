@@ -14,6 +14,7 @@ import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
 import PartsPage from "./pages/PartsPage";
 import DocDashboard from "./pages/DocDashboard";
+import TrainDashboard from "./pages/TrainingDashboard";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -80,6 +81,10 @@ const App = () => (
 
 							<Route
 								path="/training"
+								element={<TrainDashboard   />}
+							/>
+							<Route
+								path="/traning-content"
 								element={<TrainingPage />}
 							/>
 							<Route path="/parts" element={<MachinesPage />} />
