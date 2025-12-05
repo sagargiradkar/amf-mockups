@@ -11,6 +11,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import SearchResultsPage from "./components/documentation/SearchResultsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import CartPage from "./pages/CartPage";
+import HomePage from "./pages/HomePage";
+import PartsPage from "./pages/PartsPage";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -29,10 +31,8 @@ const App = () => (
 				<NotificationProvider>
 					<BrowserRouter>
 						<Routes>
-							<Route
-								path="/"
-								element={<Navigate to="/machines" replace />}
-							/>
+							<Route path="/" element={<HomePage />} />
+							 <Route path="/parts" element={<PartsPage />} />
 							<Route
 								path="/machines"
 								element={<MachinesPage />}

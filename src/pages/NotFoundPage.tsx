@@ -22,7 +22,7 @@ export default function NotFoundPage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Go Back
           </Button>
-          <Button onClick={() => navigate('/machines')}>
+          <Button onClick={() => navigate('/')}>
             <Home className="mr-2 h-4 w-4" />
             Go to Home
           </Button>
