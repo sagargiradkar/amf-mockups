@@ -24,21 +24,21 @@ const DocDashboard = () => {
       title: "Register\nfor\nUpdates",
       lines: ["Register", "for", "Updates"],
       image: trainingImage,
-      path: "/documentation",
+      path: "/register-updates",
     },
     {
       id: "recently-viewed",
       title: "",
       lines: ["Recently", "Viewed","Content"],
       image: partsImage,
-      path: "/documentation",
+      path: "/recently-viewed",
     },
     {
       id: "historical-content",
       title: "Historical\nContent",
       lines: ["Historical", "Content"],
       image: serviceImage,
-      path: "/documentation",
+      path: "/historical-content",
     },
     
   ];

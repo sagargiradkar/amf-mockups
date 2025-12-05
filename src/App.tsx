@@ -15,6 +15,10 @@ import HomePage from "./pages/HomePage";
 import PartsPage from "./pages/PartsPage";
 import DocDashboard from "./pages/DocDashboard";
 import TrainDashboard from "./pages/TrainingDashboard";
+import RegisterUpdatesPage from "./pages/RegisterUpdatesPage";
+import RecentlyViewedPage from "./pages/RecentlyViewedPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import HistoricalContentPage from "./pages/HistoricalContentPage";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -87,6 +91,14 @@ const App = () => (
 								path="/traning-content"
 								element={<TrainingPage />}
 							/>
+							<Route path="/register-updates" element={<RegisterUpdatesPage />} />
+							<Route path="/recently-viewed" element={<RecentlyViewedPage />} />
+							<Route path="/favorites" element={<FavoritesPage />} />
+							<Route path="/historical-content" element={<HistoricalContentPage />} />
+
+
+
+
 							<Route path="/parts" element={<MachinesPage />} />
 							<Route path="/service" element={<MachinesPage />} />
 							<Route
