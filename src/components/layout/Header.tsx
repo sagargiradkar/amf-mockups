@@ -117,10 +117,7 @@ export function Header() {
 						</button>
 
 						{/* AMF Logo */}
-						<Link
-							to="/"
-							className="flex items-center shrink-0"
-						>
+						<Link to="/" className="flex items-center shrink-0">
 							<img
 								src="/amf-logo.png"
 								alt="AMF Bakery Systems"

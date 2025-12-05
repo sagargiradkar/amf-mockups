@@ -8,7 +8,7 @@ import { ShoppingCart, Bell, Menu, X, ChevronDown, User } from "lucide-react";
 const navItems = [
 	{ label: "HOME", path: "/" },
 	{ label: "PARTS", path: "/parts" },
-	{ label: "DOCUMENTATION", path: "/documentation" },
+	{ label: "DOCUMENTATION", path: "/documentationdashboard" },
 	{ label: "TRAINING", path: "/training" },
 	{ label: "SERVICE", path: "/service" },
 	{ label: "ANALYTICS", path: "/analytics" },

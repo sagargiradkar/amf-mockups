@@ -1,28 +1,21 @@
-import { useState, useEffect } from 'react';
-import { RecentDocument } from '../types';
-
-const MAX_RECENT_ITEMS = 10;
+// useRecentlyViewed.ts
+import { useState } from "react";
+import { mockDocuments } from "../data/mockData";
 
 export function useRecentlyViewed() {
-  const [recentDocuments, setRecentDocuments] = useState<RecentDocument[]>(() => {
-    const stored = localStorage.getItem('amf-recent-documents');
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [recentDocuments] = useState(
+    mockDocuments
+      .filter((d) =>
+        ["101", "102", "201", "202", "301", "302"].includes(d.id)
+      )
+      .map((d, i) => ({
+        ...d,
+        viewedAt: new Date(Date.now() - i * 60 * 60 * 1000).toISOString(),
+      }))
+  );
 
-  useEffect(() => {
-    localStorage.setItem('amf-recent-documents', JSON.stringify(recentDocuments));
-  }, [recentDocuments]);
+  const isRecent = (id: string) =>
+    recentDocuments.some((doc) => doc.id === id);
 
-  const addRecentDocument = (doc: Omit<RecentDocument, 'viewedAt'>) => {
-    setRecentDocuments(prev => {
-      const filtered = prev.filter(d => d.id !== doc.id);
-      const newRecent: RecentDocument = {
-        ...doc,
-        viewedAt: new Date().toISOString(),
-      };
-      return [newRecent, ...filtered].slice(0, MAX_RECENT_ITEMS);
-    });
-  };
-
-  return { recentDocuments, addRecentDocument };
+  return { recentDocuments, isRecent };
 }

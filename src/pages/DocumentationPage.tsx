@@ -1,129 +1,224 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Layout } from '../components/layout/Layout';
-import { DocumentTable } from '../components/documentation/DocumentTable';
-import { CategoryTabs } from '../components/documentation/CategoryTabs';
-import { SearchBar } from '../components/documentation/SearchBar';
-import { Sidebar } from '../components/documentation/Sidebar';
-import { SubscribeModal } from '../components/documentation/SubscribeModal';
-import { mockDocuments } from '../data/mockData';
-import { DocumentCategory } from '../data/types/types';
-import { useFavorites } from '../hooks/useFavorites';
-import { X } from 'lucide-react';
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Layout } from "../components/layout/Layout";
+import { DocumentTable } from "../components/documentation/DocumentTable";
+import { CategoryTabs } from "../components/documentation/CategoryTabs";
+import { SearchBar } from "../components/documentation/SearchBar";
+import { Sidebar } from "../components/documentation/Sidebar";
+import { SubscribeModal } from "../components/documentation/SubscribeModal";
+import { mockDocuments } from "../data/mockData";
+import { DocumentCategory } from "../data/types/types";
+import { useFavorites } from "../hooks/useFavorites";
+import { useRecentlyViewed } from "../hooks/useRecentlyViewed";
+import { X } from "lucide-react";
 
 // Helper function to check if document is new (< 3 months old)
 const isDocumentNew = (uploadDate: string): boolean => {
-  const threeMonthsAgo = new Date();
-  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-  const docDate = new Date(uploadDate);
-  return docDate >= threeMonthsAgo;
+	const threeMonthsAgo = new Date();
+	threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+	const docDate = new Date(uploadDate);
+	return docDate >= threeMonthsAgo;
 };
 
 export default function DocumentationPage() {
-  const [searchParams] = useSearchParams();
-  const machineId = searchParams.get('machine');
-  
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<DocumentCategory>('manuals');
-  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
-  const { toggleFavorite, isFavorite } = useFavorites();
+	const [searchParams] = useSearchParams();
+	const initialMachineId = searchParams.get("machine");
+	const [selectedMachineId, setSelectedMachineId] = useState<string | null>(
+		initialMachineId
+	);
 
-  // Filter documents
-  const filteredDocuments = mockDocuments.filter((doc) => {
-    const matchesCategory = doc.category === selectedCategory;
-    const matchesMachine = !machineId || doc.machineId === machineId;
-    const matchesSearch =
-      searchTerm === '' ||
-      doc.filename.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doc.serialNumber.toLowerCase().includes(searchTerm.toLowerCase());
+	const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+	const [showOnlyRecent, setShowOnlyRecent] = useState(false);
 
-    return matchesCategory && matchesMachine && matchesSearch;
-  });
+	const [searchTerm, setSearchTerm] = useState("");
+	const [selectedCategory, setSelectedCategory] =
+		useState<DocumentCategory>("manuals");
+	const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
+	const { toggleFavorite, isFavorite } = useFavorites();
+	const { isRecent } = useRecentlyViewed();
 
-  // Update favorites status and add isNew flag
-  const documentsWithFavorites = filteredDocuments.map((doc) => ({
-    ...doc,
-    isFavorite: isFavorite(doc.id),
-    isNew: isDocumentNew(doc.uploadDate), // Add isNew flag based on upload date
-  }));
+	// Filter documents
+	const filteredDocuments = mockDocuments.filter((doc) => {
+		const matchesCategory = doc.category === selectedCategory;
+		const matchesMachine =
+			!selectedMachineId || doc.machineId === selectedMachineId;
+		const matchesSearch =
+			searchTerm === "" ||
+			doc.filename.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			doc.serialNumber.toLowerCase().includes(searchTerm.toLowerCase());
 
-  const handleDownloadSelected = (documentIds: string[]) => {
-    console.log('Downloading documents:', documentIds);
-    alert(`Downloading ${documentIds.length} document(s)`);
-  };
+		const matchesFavorites = !showOnlyFavorites || isFavorite(doc.id);
+		const matchesRecent = !showOnlyRecent || isRecent(doc.id);
 
-  return (
-    <Layout>
-      <div className="flex flex-col lg:flex-row gap-6 p-3 sm:p-4 md:p-6">
-        {/* Left Sidebar - Desktop Only */}
-        <div className="hidden lg:block">
-          <Sidebar onSubscribeClick={() => setIsSubscribeModalOpen(true)} />
-        </div>
+		return (
+			matchesCategory &&
+			matchesMachine &&
+			matchesSearch &&
+			matchesFavorites &&
+			matchesRecent
+		);
+	});
 
-        {/* Main Content Area */}
-        <div className="flex-1 min-w-0">
-          {/* Category Tabs - Scrollable on mobile */}
-          <div className="overflow-x-auto scrollbar-hide -mx-3 sm:-mx-4 md:-mx-6 lg:mx-0">
-            <CategoryTabs
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-            />
-          </div>
+	// Update favorites status and add isNew flag
+	const documentsWithFavorites = filteredDocuments.map((doc) => ({
+		...doc,
+		isFavorite: isFavorite(doc.id),
+		isNew: isDocumentNew(doc.uploadDate),
+	}));
 
-          {/* Search Bar */}
-          <div className="my-4 sm:my-6">
-            <SearchBar value={searchTerm} onChange={setSearchTerm} />
-          </div>
+	const handleDownloadSelected = (documentIds: string[]) => {
+		console.log("Downloading documents:", documentIds);
+		alert(`Downloading ${documentIds.length} document(s)`);
+	};
 
-          {/* Active Filters Display */}
-          {(searchTerm || machineId) && (
-            <div className="mb-4 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
-              <span className="text-muted-foreground">Active filters:</span>
-              {searchTerm && (
-                <div className="flex items-center gap-1.5 rounded-full bg-muted px-2.5 sm:px-3 py-1.5">
-                  <span className="font-medium">Search: {searchTerm}</span>
-                  <button
-                    onClick={() => setSearchTerm('')}
-                    className="hover:text-destructive transition-colors"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </div>
-              )}
-              {machineId && (
-                <div className="flex items-center gap-1.5 rounded-full bg-muted px-2.5 sm:px-3 py-1.5">
-                  <span className="font-medium">Machine filtered</span>
-                </div>
-              )}
-            </div>
-          )}
+	const clearFavoritesFilter = () => setShowOnlyFavorites(false);
+	const clearRecentFilter = () => setShowOnlyRecent(false);
 
-          {/* Document Table */}
-          <div className="overflow-hidden">
-            <DocumentTable
-              documents={documentsWithFavorites}
-              onToggleFavorite={toggleFavorite}
-              onDownloadSelected={handleDownloadSelected}
-            />
-          </div>
+	return (
+		<Layout>
+			<div className="flex flex-col lg:flex-row gap-6 p-3 sm:p-4 md:p-6">
+				{/* Left Sidebar - Desktop Only */}
+				<div className="hidden lg:block">
+					<Sidebar
+						onSubscribeClick={() => setIsSubscribeModalOpen(true)}
+						selectedMachineId={selectedMachineId}
+						onMachineChange={setSelectedMachineId}
+						onViewAllFavorites={() => {
+							setShowOnlyFavorites(true);
+							setShowOnlyRecent(false);
+						}}
+						onViewAllRecent={() => {
+							setShowOnlyRecent(true);
+							setShowOnlyFavorites(false);
+						}}
+					/>
+				</div>
 
-          {/* Results Summary */}
-          <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-muted-foreground">
-            {documentsWithFavorites.length} {documentsWithFavorites.length === 1 ? 'document' : 'documents'} found
-          </div>
+				{/* Main Content Area */}
+				<div className="flex-1 min-w-0">
+					{/* Category Tabs - Scrollable on mobile */}
+					<div className="overflow-x-auto scrollbar-hide -mx-3 sm:-mx-4 md:-mx-6 lg:mx-0">
+						<CategoryTabs
+							selectedCategory={selectedCategory}
+							onCategoryChange={setSelectedCategory}
+						/>
+					</div>
 
-          {/* Mobile Sidebar - Shows at Bottom */}
-          <div className="lg:hidden mt-8">
-            <Sidebar isMobile onSubscribeClick={() => setIsSubscribeModalOpen(true)} />
-          </div>
-        </div>
-      </div>
+					{/* Search Bar */}
+					<div className="my-4 sm:my-6">
+						<SearchBar
+							value={searchTerm}
+							onChange={setSearchTerm}
+						/>
+					</div>
 
-      {/* Subscribe Modal - Rendered at Page Level */}
-      <SubscribeModal
-        isOpen={isSubscribeModalOpen}
-        onClose={() => setIsSubscribeModalOpen(false)}
-      />
-    </Layout>
-  );
+					{/* Active Filters Display */}
+					{(searchTerm ||
+						selectedMachineId ||
+						showOnlyFavorites ||
+						showOnlyRecent) && (
+						<div className="mb-4 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+							<span className="text-muted-foreground">
+								Active filters:
+							</span>
+
+							{searchTerm && (
+								<div className="flex items-center gap-1.5 rounded-full bg-muted px-2.5 sm:px-3 py-1.5">
+									<span className="font-medium">
+										Search: {searchTerm}
+									</span>
+									<button
+										onClick={() => setSearchTerm("")}
+										className="hover:text-destructive transition-colors"
+									>
+										<X className="h-3 w-3" />
+									</button>
+								</div>
+							)}
+
+							{selectedMachineId && (
+								<div className="flex items-center gap-1.5 rounded-full bg-muted px-2.5 sm:px-3 py-1.5">
+									<span className="font-medium">
+										Machine filtered
+									</span>
+								</div>
+							)}
+
+							{showOnlyFavorites && (
+								<div className="flex items-center gap-1.5 rounded-full bg-muted px-2.5 sm:px-3 py-1.5">
+									<span className="font-medium">
+										Favorites
+									</span>
+									<button
+										onClick={clearFavoritesFilter}
+										className="hover:text-destructive transition-colors"
+									>
+										<X className="h-3 w-3" />
+									</button>
+								</div>
+							)}
+
+							{showOnlyRecent && (
+								<div className="flex items-center gap-1.5 rounded-full bg-muted px-2.5 sm:px-3 py-1.5">
+									<span className="font-medium">
+										Recently viewed
+									</span>
+									<button
+										onClick={clearRecentFilter}
+										className="hover:text-destructive transition-colors"
+									>
+										<X className="h-3 w-3" />
+									</button>
+								</div>
+							)}
+						</div>
+					)}
+
+					{/* Document Table */}
+					<div className="overflow-hidden">
+						<DocumentTable
+							documents={documentsWithFavorites}
+							onToggleFavorite={toggleFavorite}
+							onDownloadSelected={handleDownloadSelected}
+						/>
+					</div>
+
+					{/* Results Summary */}
+					<div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-muted-foreground">
+						{documentsWithFavorites.length}{" "}
+						{documentsWithFavorites.length === 1
+							? "document"
+							: "documents"}{" "}
+						found
+					</div>
+
+					{/* Mobile Sidebar - Shows at Bottom */}
+					<div className="lg:hidden mt-8">
+						<Sidebar
+							isMobile
+							onSubscribeClick={() =>
+								setIsSubscribeModalOpen(true)
+							}
+							selectedMachineId={selectedMachineId}
+							onMachineChange={setSelectedMachineId}
+							onViewAllFavorites={() => {
+								setShowOnlyFavorites(true);
+								setShowOnlyRecent(false);
+							}}
+							onViewAllRecent={() => {
+								setShowOnlyRecent(true);
+								setShowOnlyFavorites(false);
+							}}
+						/>
+					</div>
+				</div>
+			</div>
+
+			{/* Subscribe Modal - Rendered at Page Level */}
+			<SubscribeModal
+				isOpen={isSubscribeModalOpen}
+				onClose={() => setIsSubscribeModalOpen(false)}
+			/>
+		</Layout>
+	);
 }

@@ -1,24 +1,26 @@
-import { useState, useEffect } from 'react';
+// src/hooks/useFavorites.ts
+import { useState } from "react";
 
 export function useFavorites() {
-  const [favorites, setFavorites] = useState<string[]>(() => {
-    const stored = localStorage.getItem('amf-favorites');
-    return stored ? JSON.parse(stored) : [];
-  });
+  // Seed with some mock favorites so the UI is populated
+  const [favorites, setFavorites] = useState<string[]>([
+    "101",
+    "102",
+    "201",
+    "202",
+    "301",
+    "302",
+    "401",
+    "402",
+  ]);
 
-  useEffect(() => {
-    localStorage.setItem('amf-favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
-  const toggleFavorite = (documentId: string) => {
-    setFavorites(prev =>
-      prev.includes(documentId)
-        ? prev.filter(id => id !== documentId)
-        : [...prev, documentId]
+  const toggleFavorite = (id: string) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
     );
   };
 
-  const isFavorite = (documentId: string) => favorites.includes(documentId);
+  const isFavorite = (id: string) => favorites.includes(id);
 
   return { favorites, toggleFavorite, isFavorite };
 }

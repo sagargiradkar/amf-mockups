@@ -13,6 +13,7 @@ import NotificationsPage from "./pages/NotificationsPage";
 import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
 import PartsPage from "./pages/PartsPage";
+import DocDashboard from "./pages/DocDashboard";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -32,10 +33,33 @@ const App = () => (
 					<BrowserRouter>
 						<Routes>
 							<Route path="/" element={<HomePage />} />
-							 <Route path="/parts" element={<PartsPage />} />
+							<Route path="/parts" element={<PartsPage />} />
 							<Route
 								path="/machines"
 								element={<MachinesPage />}
+							/>
+							{/* Documentation dashboard (4 cards screen) */}
+							<Route
+								path="/documentationdashboard"
+								element={<DocDashboard />}
+							/>
+
+							{/* optional nested routes you linked from cards */}
+							<Route
+								path="/documentationdashboard"
+								element={<div>Search Content</div>}
+							/>
+							<Route
+								path="/documentationdashboard"
+								element={<div>Register for Updates</div>}
+							/>
+							<Route
+								path="/documentationdashboard"
+								element={<div>Historical Content</div>}
+							/>
+							<Route
+								path="/documentationdashboard"
+								element={<div>Parts Documentation</div>}
 							/>
 							<Route
 								path="/machines/:id"
