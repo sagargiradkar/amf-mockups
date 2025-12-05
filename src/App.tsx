@@ -74,6 +74,11 @@ const App = () => (
 								element={<DocumentationPage />}
 							/>
 							<Route
+								path="/documentation/:id"
+								element={<DocumentationPage />}
+							/>
+
+							<Route
 								path="/training"
 								element={<TrainingPage />}
 							/>

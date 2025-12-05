@@ -747,3 +747,10 @@ export const mockNotifications: Notification[] = [
         isRead: true,
     },
 ];
+export const mockPages = [
+  { id: 1, title: "Home", url: "/" },
+  { id: 2, title: "Machines", url: "/machines" },
+  { id: 3, title: "Order History", url: "/order-history" },
+  { id: 4, title: "Cart", url: "/cart" },
+  { id: 5, title: "Profile", url: "/profile" },
+];

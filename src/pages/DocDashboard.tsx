@@ -17,7 +17,7 @@ const DocDashboard = () => {
       title: "Search\nContent",
       lines: ["Search", "Content"],
       image: documentationImage,
-      path: "/documentation",
+      path: "/search",
     },
     {
       id: "register-updates",
