@@ -3,10 +3,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "../components/layout/Layout";
 
-import partsImage from "../assets/parts.jpg";
-import documentationImage from "../assets/documentation.jpg";
-import trainingImage from "../assets/training.jpg";
-import serviceImage from "../assets/service.jpg";
+import partsImage from "../assets/doc_recently_view_content.png";
+import documentationImage from "../assets/docu_search.png";
+import trainingImage from "../assets/doc_register_for_update.png";
+import serviceImage from "../assets/doc_historical_content.png";
 
 const DocDashboard = () => {
   const navigate = useNavigate();

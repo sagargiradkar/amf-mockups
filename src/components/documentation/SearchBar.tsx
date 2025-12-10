@@ -25,7 +25,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
               ? 'Search by serial number...'
               : searchType === 'customer'
               ? 'Search by customer LN...'
-              : 'Search by Machine Name, Serial Number, Customer LN, or Keyword'
+              : 'Search by Machine Name, Serial Number or Keyword'
           }
           className="h-12 w-full rounded-md border border-border bg-background pl-12 pr-24 text-base transition-all focus:border-destructive focus:outline-none focus:ring-2 focus:ring-destructive/20"
         />

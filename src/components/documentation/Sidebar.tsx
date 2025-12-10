@@ -4,7 +4,7 @@ import { useRecentlyViewed } from "../../hooks/useRecentlyViewed";
 import { mockDocuments, mockMachines } from "../../data/mockData";
 import { formatRelativeTime } from "../../utils/date";
 import { getFileIcon } from "../../utils/fileIcons";
-import  MachineDropdown  from "./MachineDropdown";
+import MachineDropdown from "./MachineDropdown";
 interface SidebarProps {
 	onSubscribeClick: () => void;
 	onClose?: () => void;
@@ -76,9 +76,9 @@ export function Sidebar({
 							Register for Updates
 						</h3>
 					</div>
-					<p className="mb-3 text-sm leading-relaxed text-muted-foreground">
-						Get notified when new documentation is available for
-						your machines.
+					<p className="mb-3 text-sm text-muted-foreground">
+						Get notified when updated documentation, training
+						content, or products are available for your machines.
 					</p>
 					<button
 						onClick={onSubscribeClick}
@@ -137,7 +137,7 @@ export function Sidebar({
 								onClick={onViewAllFavorites}
 							>
 								View all
-                							</button>
+							</button>
 						)}
 					</div>
 				) : (
