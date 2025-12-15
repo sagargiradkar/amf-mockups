@@ -19,6 +19,10 @@ import RegisterUpdatesPage from "./pages/RegisterUpdatesPage";
 import RecentlyViewedPage from "./pages/RecentlyViewedPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import HistoricalContentPage from "./pages/HistoricalContentPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminDocuments from "./pages/AdminDocuments";
+import AdminDocumentationPage from "./pages/AdminDocumentationPage";
+import AdminCustomerLocations from "./components/documentation/AdminCustomerLocations";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -85,19 +89,28 @@ const App = () => (
 
 							<Route
 								path="/training"
-								element={<TrainDashboard   />}
+								element={<TrainDashboard />}
 							/>
 							<Route
 								path="/traning-content"
 								element={<TrainingPage />}
 							/>
-							<Route path="/register-updates" element={<RegisterUpdatesPage />} />
-							<Route path="/recently-viewed" element={<RecentlyViewedPage />} />
-							<Route path="/favorites" element={<FavoritesPage />} />
-							<Route path="/historical-content" element={<HistoricalContentPage />} />
-
-
-
+							<Route
+								path="/register-updates"
+								element={<RegisterUpdatesPage />}
+							/>
+							<Route
+								path="/recently-viewed"
+								element={<RecentlyViewedPage />}
+							/>
+							<Route
+								path="/favorites"
+								element={<FavoritesPage />}
+							/>
+							<Route
+								path="/historical-content"
+								element={<HistoricalContentPage />}
+							/>
 
 							<Route path="/parts" element={<MachinesPage />} />
 							<Route path="/service" element={<MachinesPage />} />
@@ -106,7 +119,27 @@ const App = () => (
 								element={<NotificationsPage />}
 							/>
 							<Route path="/cart" element={<CartPage />} />
+
 							<Route path="*" element={<NotFoundPage />} />
+							<Route path="/admin" element={<AdminDashboard />} />
+							<Route
+								path="/admin/documents"
+								element={<AdminDocumentationPage />}
+							/>
+							{/* <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/roles" element={<AdminRoles />} />
+                <Route path="/admin/customer-locations" element={<AdminCustomerLocations />} />
+                <Route path="/admin/machine-provision" element={<AdminMachineProvision />} />
+                <Route path="/admin/price-markups" element={<AdminPriceMarkups />} />
+                <Route path="/admin/upload-models" element={<AdminUploadModels />} />
+                <Route path="/admin/settings" element={<AdminSettings />} />
+                <Route path="/admin/policy-center" element={<AdminPolicyCenter />} /> */}
+							{/* <Route
+								path="/admin/documentation"
+								element={< />}
+							/> */}
+							<Route path="/admin/customer-locations" element={<AdminCustomerLocations />} />
+
 						</Routes>
 					</BrowserRouter>
 				</NotificationProvider>

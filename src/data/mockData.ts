@@ -38,7 +38,41 @@ export const mockUser: User = {
     location: "Lyndale Plant - Chicago",
     role: "Plant Manager",
 };
-
+export const mockCustomers = [
+    { id: "1", name: "Ditsch USA, LLC", code: "CUS-002940" },
+    { id: "2", name: "Mid South Baking", code: "CUS-003456" },
+    { id: "3", name: "Flowers Bakeries, Incorporated", code: "CUS-004567" },
+    { id: "4", name: "C.H. Guenther and Son, Inc.", code: "CUS-001283" },
+    { id: "5", name: "Alpha Baking Company", code: "CUS-000911" },
+    {
+        id: "1",
+        name: "Ditsch USA, LLC",
+        code: "CUS-002940",
+        username: "CUS-002940",
+        password: "p333)1278",
+    },
+    {
+        id: "2",
+        name: "Mid South Baking",
+        code: "CUS-003456",
+        username: "CUS-003456",
+        password: "m789p4561",
+    },
+    {
+        id: "3",
+        name: "Alpha Baking Co.",
+        code: "CUS-001234",
+        username: "CUS-001234",
+        password: "a456b7890",
+    },
+    {
+        id: "4",
+        name: "Flowers Bakeries",
+        code: "CUS-004567",
+        username: "CUS-004567",
+        password: "f123g4567",
+    },
+];
 export const mockMachines: Machine[] = [
     {
         id: "1",
@@ -222,6 +256,8 @@ export const mockDocuments: Document[] = [
         fileType: "pdf",
         fileUrl: "/docs/a-series-manual.pdf",
         machineId: "1",
+        customerId: "3", // Alpha Baking Co.
+        locationId: "1", // Lyndale Plant
     },
     {
         id: "102",
@@ -232,6 +268,8 @@ export const mockDocuments: Document[] = [
         fileType: "pdf",
         fileUrl: "/docs/a-series-maintenance.pdf",
         machineId: "1",
+         customerId: "3",
+        locationId: "1",
     },
     {
         id: "103",
@@ -242,6 +280,8 @@ export const mockDocuments: Document[] = [
         fileType: "pdf",
         fileUrl: "/docs/a-series-electrical.pdf",
         machineId: "1",
+          customerId: "3",
+        locationId: "1",
     },
     {
         id: "104",
@@ -252,6 +292,8 @@ export const mockDocuments: Document[] = [
         fileType: "pdf",
         fileUrl: "/docs/a-series-wiring.pdf",
         machineId: "1",
+          customerId: "3",
+        locationId: "1",
     },
     {
         id: "105",
@@ -262,6 +304,8 @@ export const mockDocuments: Document[] = [
         fileType: "pdf",
         fileUrl: "/docs/a-series-assembly.pdf",
         machineId: "1",
+          customerId: "3",
+        locationId: "1",
     },
     {
         id: "106",

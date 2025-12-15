@@ -11,22 +11,28 @@ export interface Machine {
 }
 
 export interface Document {
-  id: string;
-  filename: string;
-  fileType: string;
-  fileSize?: string;         // Optional - not all files have sizes
-  uploadDate?: string;       // Optional - can use dateModified instead
-  dateModified: string;      // Required
-  serialNumber: string;      // Required
-  machineId?: string;        // Optional - some docs aren't machine-specific
-  category: DocumentCategory;
-  fileUrl: string;           // Required
-  isFavorite?: boolean;      // Optional - default false
-  isNew?: boolean;           // Optional - calculated property
+	id: string;
+	filename: string;
+	fileType: string;
+	fileSize?: string; // Optional - not all files have sizes
+	uploadDate?: string; // Optional - can use dateModified instead
+	dateModified: string; // Required
+	serialNumber: string; // Required
+	machineId?: string; // Optional - some docs aren't machine-specific
+	category: DocumentCategory;
+	fileUrl: string; // Required
+	isFavorite?: boolean; // Optional - default false
+	isNew?: boolean; // Optional - calculated property
+	customerId?: string; // Add this - optional for general docs
+	locationId?: string;
 }
-
-
-
+export interface Customer {
+	id: string;
+	name: string;
+	code: string;
+	username: string;
+	password: string;
+}
 export type DocumentCategory =
 	| "custom-documentation"
 	| "manuals"
@@ -76,34 +82,34 @@ export interface TrainingModule {
 	url: string;
 	isNew: boolean;
 }
-export type NotificationType = 'document' | 'training' | 'system' | 'service';
+export type NotificationType = "document" | "training" | "system" | "service";
 
 export interface Notification {
-  id: string;
-  type: NotificationType;
-  message: string;
-  timestamp: string; // MM-DD-YYYY format
-  isRead: boolean;
-  documentId?: string; // Optional: Link to specific document
-  machineId?: string; // Optional: Link to specific machine
-  actionUrl?: string; // Optional: Link to take action
-  priority?: 'low' | 'medium' | 'high'; // Optional: Priority level
+	id: string;
+	type: NotificationType;
+	message: string;
+	timestamp: string; // MM-DD-YYYY format
+	isRead: boolean;
+	documentId?: string; // Optional: Link to specific document
+	machineId?: string; // Optional: Link to specific machine
+	actionUrl?: string; // Optional: Link to take action
+	priority?: "low" | "medium" | "high"; // Optional: Priority level
 }
 
 export interface CartItem {
-  id: string;
-  documentId: string;
-  filename: string;
-  serialNumber: string;
-  machineId?: string;
-  machineName?: string;
-  fileType: string;
-  fileSize?: string;
-  dateAdded: string;
-  category: DocumentCategory;
+	id: string;
+	documentId: string;
+	filename: string;
+	serialNumber: string;
+	machineId?: string;
+	machineName?: string;
+	fileType: string;
+	fileSize?: string;
+	dateAdded: string;
+	category: DocumentCategory;
 }
 
 export interface Cart {
-  items: CartItem[];
-  totalItems: number;
+	items: CartItem[];
+	totalItems: number;
 }

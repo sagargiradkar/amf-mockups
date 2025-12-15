@@ -22,7 +22,7 @@ const DocDashboard = () => {
     {
       id: "register-updates",
       title: "Register\nfor\nUpdates",
-      lines: ["Register", "for", "Updates"],
+      lines: ["Manage","Updates"],
       image: trainingImage,
       path: "/register-updates",
     },

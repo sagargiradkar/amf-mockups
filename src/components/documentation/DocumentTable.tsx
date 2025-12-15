@@ -9,6 +9,7 @@ interface DocumentTableProps {
   documents: Document[];
   onToggleFavorite: (id: string) => void;
   onDownloadSelected: (documentIds: string[]) => void;
+  isAdminMode?: boolean; // Add this prop for admin mode
 }
 
 type SortField = 'filename' | 'serialNumber' | 'dateModified';
@@ -18,6 +19,7 @@ export function DocumentTable({
   documents,
   onToggleFavorite,
   onDownloadSelected,
+  isAdminMode = false, // Default to false
 }: DocumentTableProps) {
   const [selectedDocs, setSelectedDocs] = useState<Set<string>>(new Set());
   const [sortField, setSortField] = useState<SortField | null>(null);
@@ -198,22 +200,25 @@ export function DocumentTable({
                   <td className="px-4 py-4 text-muted-foreground">{formatDate(doc.dateModified)}</td>
                   <td className="px-4 py-4">
                     <div className="flex items-center justify-center gap-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onToggleFavorite(doc.id);
-                        }}
-                        className="p-2 hover:bg-accent rounded-md transition-colors"
-                        aria-label="Toggle favorite"
-                      >
-                        <Star
-                          className={`h-5 w-5 ${
-                            doc.isFavorite
-                              ? 'fill-destructive text-destructive'
-                              : 'text-muted-foreground'
-                          }`}
-                        />
-                      </button>
+                      {/* Hide favorite button in admin mode */}
+                      {!isAdminMode && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleFavorite(doc.id);
+                          }}
+                          className="p-2 hover:bg-accent rounded-md transition-colors"
+                          aria-label="Toggle favorite"
+                        >
+                          <Star
+                            className={`h-5 w-5 ${
+                              doc.isFavorite
+                                ? 'fill-destructive text-destructive'
+                                : 'text-muted-foreground'
+                            }`}
+                          />
+                        </button>
+                      )}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -263,19 +268,26 @@ export function DocumentTable({
                   </p>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
-                  <button
-                    onClick={() => onToggleFavorite(doc.id)}
+                  {/* Hide favorite button in admin mode */}
+                  {!isAdminMode && (
+                    <button
+                      onClick={() => onToggleFavorite(doc.id)}
+                      className="p-2 hover:bg-muted rounded-md"
+                      aria-label="Toggle favorite"
+                    >
+                      <Star
+                        className={`h-5 w-5 ${
+                          doc.isFavorite
+                            ? 'fill-destructive text-destructive'
+                            : 'text-muted-foreground'
+                        }`}
+                      />
+                    </button>
+                  )}
+                  <button 
                     className="p-2 hover:bg-muted rounded-md"
+                    aria-label="Download document"
                   >
-                    <Star
-                      className={`h-5 w-5 ${
-                        doc.isFavorite
-                          ? 'fill-destructive text-destructive'
-                          : 'text-muted-foreground'
-                      }`}
-                    />
-                  </button>
-                  <button className="p-2 hover:bg-muted rounded-md">
                     <Download className="h-5 w-5 text-muted-foreground" />
                   </button>
                 </div>
